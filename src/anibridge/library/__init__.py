@@ -3,7 +3,9 @@
 from anibridge.library.interfaces import (
     ExternalId,
     HistoryEntry,
+    IdNameSpace,
     LibraryEpisode,
+    LibraryMedia,
     LibraryMovie,
     LibraryProvider,
     LibrarySeason,
@@ -21,7 +23,9 @@ from anibridge.library.registry import (
 __all__ = [
     "ExternalId",
     "HistoryEntry",
+    "IdNameSpace",
     "LibraryEpisode",
+    "LibraryMedia",
     "LibraryMovie",
     "LibraryProvider",
     "LibraryProviderRegistry",
