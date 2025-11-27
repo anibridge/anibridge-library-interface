@@ -139,6 +139,8 @@ class LibraryMedia(LibraryEntity[LibraryProviderT], Protocol[LibraryProviderT]):
 
         This includes view events for child items as well.
 
+        Note: All returned history entries must have timezone-aware timestamps.
+
         Returns:
             Sequence[HistoryEntry]: User history entries.
         """
@@ -274,7 +276,7 @@ class HistoryEntry:
     """User history event for an item in the library."""
 
     library_key: str
-    viewed_at: datetime
+    viewed_at: datetime  # Must be timezone-aware
 
 
 @runtime_checkable
@@ -338,7 +340,7 @@ class LibraryProvider(Protocol):
         Args:
             section (LibrarySection): The library section to list items from.
             min_last_modified (datetime | None): If provided, only items modified after
-                this timestamp will be included.
+                this timestamp will be included. Expect a timezone-aware datetime.
             require_watched (bool): If True, only include items that have been marked as
                 watched/viewed.
             keys (Sequence[str] | None): If provided, only include items whose keys are
