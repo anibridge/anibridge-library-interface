@@ -9,9 +9,7 @@ from typing import ClassVar, Literal, Protocol, Self, TypeVar, runtime_checkable
 from starlette.requests import Request
 
 __all__ = [
-    "ExternalId",
     "HistoryEntry",
-    "IdNameSpace",
     "LibraryEntity",
     "LibraryEpisode",
     "LibraryMedia",
@@ -177,15 +175,15 @@ class LibraryMedia(LibraryEntity[LibraryProviderT], Protocol[LibraryProviderT]):
         """
         ...
 
-    def ids(self) -> Sequence[ExternalId]:
+    def ids(self) -> dict[str, str]:
         """Get external identifiers associated with the media item.
 
-        The ID namespace should be recognizable to AniBridge's mappings database.
+        These can be arbitrary and are only used for logging and debugging purposes.
 
         Returns:
-            Sequence[ExternalId]: External identifiers.
+            dict[str, str]: Mapping of ID namespace to ID value.
         """
-        ...
+        return {}
 
     async def review(self) -> str | None:
         """Get the user's review for the media item.

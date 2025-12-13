@@ -1,9 +1,7 @@
 """Anibridge library provider interfaces package."""
 
 from anibridge.library.interfaces import (
-    ExternalId,
     HistoryEntry,
-    IdNameSpace,
     LibraryEpisode,
     LibraryMedia,
     LibraryMovie,
@@ -24,9 +22,7 @@ from anibridge.library.registry import (
 )
 
 __all__ = [
-    "ExternalId",
     "HistoryEntry",
-    "IdNameSpace",
     "LibraryEpisode",
     "LibraryMedia",
     "LibraryMovie",
