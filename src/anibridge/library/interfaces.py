@@ -20,9 +20,6 @@ __all__ = [
     "LibrarySection",
     "LibraryShow",
     "LibraryUser",
-    "MappingDescriptor",
-    "MappingEdge",
-    "MappingGraph",
     "MediaKind",
 ]
 
@@ -37,49 +34,6 @@ class MediaKind(StrEnum):
     SHOW = "show"
     SEASON = "season"
     EPISODE = "episode"
-
-
-@dataclass(frozen=True, slots=True)
-class MappingDescriptor:
-    """Provider/entry/scope descriptor for mapping resolution."""
-
-    provider: str
-    entry_id: str
-    scope: str
-
-    def key(self) -> str:
-        """Return the canonical descriptor key string."""
-        return f"{self.provider}:{self.entry_id}:{self.scope}"
-
-
-@dataclass(frozen=True, slots=True)
-class MappingEdge:
-    """Directed mapping edge between two descriptors."""
-
-    source: MappingDescriptor
-    destination: MappingDescriptor
-    source_range: str
-    destination_range: str | None
-
-
-@dataclass(frozen=True, slots=True)
-class MappingGraph:
-    """Subset of the mapping graph provided to providers for resolution."""
-
-    edges: tuple[MappingEdge, ...]
-
-    def descriptors(self) -> tuple[MappingDescriptor, ...]:
-        """Return unique descriptors referenced by the edges."""
-        seen: set[str] = set()
-        ordered: list[MappingDescriptor] = []
-        for edge in self.edges:
-            for descriptor in (edge.source, edge.destination):
-                key = descriptor.key()
-                if key in seen:
-                    continue
-                seen.add(key)
-                ordered.append(descriptor)
-        return tuple(ordered)
 
 
 @runtime_checkable
@@ -374,29 +328,6 @@ class LibraryProvider(Protocol):
                 watched/viewed.
             keys (Sequence[str] | None): If provided, only include items whose keys are
                 in this sequence.
-        """
-        ...
-
-    def resolve_mappings(
-        self,
-        mapping: MappingGraph,
-        *,
-        scope: str | None = None,
-    ) -> str | None:
-        """Select a library media key from the supplied mapping graph.
-
-        Implementations must choose some mapping descriptor from the graph that
-        they can resolve to a media key.
-
-        If a scope is provided, implementations should prefer descriptors
-        matching that scope.
-
-        Args:
-            mapping (_MappingGraph): Available mapping edges and descriptors.
-            scope (str | None): Optional scope hint (e.g., "movie", "s1").
-
-        Returns:
-            str | None: The chosen library media key, or None if unresolved.
         """
         ...
 

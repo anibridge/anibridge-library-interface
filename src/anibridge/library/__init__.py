@@ -2,17 +2,16 @@
 
 from anibridge.library.interfaces import (
     HistoryEntry,
+    LibraryEntity,
     LibraryEpisode,
     LibraryMedia,
     LibraryMovie,
     LibraryProvider,
+    LibraryProviderT,
     LibrarySeason,
     LibrarySection,
     LibraryShow,
     LibraryUser,
-    MappingDescriptor,
-    MappingEdge,
-    MappingGraph,
     MediaKind,
 )
 from anibridge.library.registry import (
@@ -23,18 +22,17 @@ from anibridge.library.registry import (
 
 __all__ = [
     "HistoryEntry",
+    "LibraryEntity",
     "LibraryEpisode",
     "LibraryMedia",
     "LibraryMovie",
     "LibraryProvider",
     "LibraryProviderRegistry",
+    "LibraryProviderT",
     "LibrarySeason",
     "LibrarySection",
     "LibraryShow",
     "LibraryUser",
-    "MappingDescriptor",
-    "MappingEdge",
-    "MappingGraph",
     "MediaKind",
     "library_provider",
     "provider_registry",
